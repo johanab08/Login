@@ -1,0 +1,112 @@
+import tkinter as tk
+
+class AplicacionBarraMenu(tk.Tk):
+
+    def __init__(self):
+        super().__init__()
+
+        self.inicializar_gui()
+
+    def inicializar_gui(self):
+        mnu_principal = tk.Menu(self)
+        mnu_archivo = tk.Menu(mnu_principal, tearoff=0)
+
+        mnu_archivo.add_command(label='Registrate')
+        mnu_archivo.add_separator()
+        mnu_archivo.add_command(label='Guardar')
+        mnu_archivo.add_command(label='Guardar como...')
+
+        mnu_principal.add_cascade(label='Archivo', menu=mnu_archivo)
+        mnu_principal.add_command(label='Acerca de', command=self.destroy)
+        mnu_principal.add_command(label='Registrate', command=self.destroy)
+
+        self.config(menu=mnu_principal)
+
+def main():
+    app = AplicacionBarraMenu()
+    app.mainloop()
+
+
+if __name__ == '__main__':
+    main()
+
+
+from tkinter import *
+
+def send_data():
+  usuario_info = usuario.get()
+  tipo_info = tipo.get()
+  correo_info = correo.get()
+  contraseña_info = contraseña.get()
+  print(usuario_info,"\t", tipo_info,"\t",  correo_info,"\t", contraseña_info)
+
+#  Open and write data to a file
+  file = open("user.txt", "a")
+  file.write(usuario_info)
+  file.write("\t")
+  file.write(tipo_info)
+  file.write("\t")
+  file.write(correo_info)
+  file.write("\t")
+  file.write(contraseña_info)
+  file.write("\t")
+  file.close()
+  print(" New user registered. Usuario: {} | Tipo de usuario: {} | Correo: {} | Contraseña: {} | Edad: {} | Peso: {} ".format(usuario_info, tipo_info, correo_info, contraseña_info))
+
+#  Delete data from previous event
+  usuario_entry.delete(0, END)
+  tipo_entry.delete(0, END)
+  correo_entry.delete(0, END)
+  contraseña_entry.delete(0, END)
+
+# Create new instance - Class Tk()  
+mywindow = Tk()
+mywindow.geometry("650x550")
+mywindow.title("Registration Form - Python + Tkinter")
+mywindow.resizable(False,False)
+mywindow.config(background = "#424242")
+main_title = Label(text = "MyPetPro | Registrate", font = ("Cambria", 14), bg = "#0074bd", fg = "black", width = "500", height = "2")
+main_title.pack()
+
+# Define Label Fields 
+correo_label = Label(text = "Ingresa su correo : ", bg = "#0074bd")
+correo_label.place(x = 22, y = 70)
+contraseña_label = Label(text = "Ingresa una contraseña: ", bg = "#0074bd")
+contraseña_label.place(x = 22, y = 130)
+tipo_label = Label(text = "¿Que mascota tienes?(perro, gato, otro): ", bg = "#0074bd")
+tipo_label.place(x = 22, y = 190)
+usuario_label = Label(text = "Nombre de la mascota: ", bg = "#0074bd")
+usuario_label.place(x = 22, y = 250)
+
+# Get and store data from users 
+usuario = StringVar()
+tipo = StringVar()
+correo = StringVar()
+contraseña = StringVar()
+
+usuario_entry = Entry(textvariable = usuario, width = "40")
+tipo_entry = Entry(textvariable = tipo, width = "40")
+correo_entry = Entry(textvariable = correo, width = "40")
+contraseña_entry = Entry(textvariable = contraseña, width = "40",  show = "*")
+
+correo_entry.place(x = 22, y = 100)
+contraseña_entry.place(x = 22, y = 160)
+tipo_entry.place(x = 22, y = 220)
+usuario_entry.place(x = 22, y = 280)
+
+ 
+# Submit Button
+submit_btn = Button(mywindow,text = "Enviar Info", width = "30", height = "2", command = send_data, bg = "#0074bd")
+submit_btn.place(x = 22, y = 320)
+
+submit_btn2 = Button(mywindow,text = "Login", width = "10", height = "1", command = send_data, bg = "#424242")
+submit_btn2.place(x = 90, y = 370)
+
+#img=tkinter.PhotoImage(file="mascota.jpge")
+#lbl_img= tkinter.label(ventana, imagen=img)
+#lbl_img.pack()
+
+#imagenL=PhotoImage(file="C:\Users\Endperu7u7r\Desktop\python\mascota.jpg")
+#lblImagen=Label(ventana, image=imagenL).place(x=100,y=100)
+
+mywindow.mainloop()
